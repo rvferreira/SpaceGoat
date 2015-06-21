@@ -136,7 +136,7 @@ def main():
     glEnable(GL_DEPTH_TEST)        #use our zbuffer
 
     global meteorID
-    meteorID = loadTexture("meteor.jpg")
+    meteorID = loadTexture("img/meteor.jpg")
     print "Texture Id got", meteorID
 
     #setup the camera
