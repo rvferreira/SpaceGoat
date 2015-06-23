@@ -1,22 +1,16 @@
 __author__ = 'rvferreira e laispc'
 
-import sys, random
-import pygame
+import sys
 
 from OpenGL.GLU import *
-from OpenGL.GL import *
 from pygame.locals import *
 
 from space import setLights, meteorLoad, meteorDraw, meteorMove
 from goat import goatLoad, goatDraw, goatMove
-from utils import Z_FAR, Z_NEAR
-
-WINDOW_WIDTH = 640
-WINDOW_HEIGHT = 480
+from starfield import *
 
 def main():
 
-    #initialise pygame
     size = width, height = WINDOW_WIDTH, WINDOW_HEIGHT
 
     screen = pygame.display.set_mode(size, OPENGL|DOUBLEBUF)
@@ -25,12 +19,11 @@ def main():
 
     pygame.init()
 
-    # #Setup display text
-    # text = pygame.Surface((300, 200))
-    # font = pygame.font.Font(None, 20)
-    # white = (255,255,255)
-    # fontimg = font.render("SpaceGoat",1,white)
-    # text.blit(fontimg, (5,0))
+    font = pygame.font.Font(None, 20)
+    textSurface = font.render("SpaceGoat", True, (255,255,255,255), (0,0,0,255))
+    textData = pygame.image.tostring(textSurface, "RGBA", True)
+    glRasterPos3d(0,0,5)
+    glDrawPixels(textSurface.get_width(), textSurface.get_height(), GL_RGBA, GL_UNSIGNED_BYTE, textData)
 
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
@@ -38,7 +31,6 @@ def main():
     glEnable(GL_DEPTH_TEST)
     glMatrixMode(GL_MODELVIEW)
 
-    #Main loop
     fps = 60
     dt = 1.0/fps
     clock = pygame.time.Clock()
@@ -47,7 +39,10 @@ def main():
     meteor = []
     meteorLoad(meteor)
 
-    rotate = move = False
+    stars = []
+    starsInit(stars)
+
+    move = False
     while 1:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -69,7 +64,6 @@ def main():
         if move:
             goatMove(goat, dir)
 
-
         meteorMove(meteor)
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -77,7 +71,11 @@ def main():
 
         goatDraw(goat)
         meteorDraw(meteor)
+        starMoveAndDraw(screen, stars)
 
+        # glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        # glClearColor(1,0,0,1)
+        
         pygame.display.flip()
 
 if __name__ == '__main__': main()

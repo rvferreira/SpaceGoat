@@ -1,11 +1,25 @@
-import sys
 import pygame
 from OpenGL.GL import *
+import numpy as np
+
+WINDOW_WIDTH = 640
+WINDOW_HEIGHT = 480
 
 Z_NEAR = 1.0
 Z_FAR = 200.0
 
 Y_GAME_PLAN = -50
+
+def BelowFraction(x):
+    "Calculate fractional part of scalar or array of floats."
+
+    return np.modf(x)[0]
+
+
+def AboveFraction(x):
+    "Calculate inverse of fractional part of scalar or array of floats."
+
+    return 1.0 - np.modf(x)[0]
 
 def objDraw(obj):
     glTranslate(obj.t[0]/20., obj.t[1]/20., obj.t[2])

@@ -33,7 +33,6 @@ def meteorMove(meteor):
     for i in range(len(meteor)):
         meteor[i].t = (meteor[i].t[0], meteor[i].t[1], meteor[i].t[2]+METEOR_SPEED)
         meteor[i].r = (meteor[i].r[0]+meteor[i].rot_speed[0], meteor[i].r[1]+meteor[i].rot_speed[1])
-        print meteor[-1].t[2]
     if meteor[-1].t[2] > LAST_METEOR_POSITION_TO_THROW_A_NEW_ONE:
         meteorLoad(meteor)
     if meteor[0].t[2] > METEOR_VANISH_Z:
