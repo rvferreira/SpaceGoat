@@ -6,7 +6,7 @@ STAR_SPEED = 2
 
 def starsInit(stars):
   for i in range(MAX_STARS):
-    star = (i, i, -i)
+    star = (i-120, i-120, i-120)
     stars.append(star)
  
 def starMoveAndDraw(screen, stars):

@@ -11,7 +11,7 @@ def goatLoad():
     obj = OBJ("model/goat/goat.obj", swapyz=True)
     obj.r, obj.t = (GOAT_X_ANGLE,0), (0,Y_GAME_PLAN,GOAT_Z_TRANS)
     obj.safeX = 10
-    obj.safeZ = 5
+    obj.safeZ = 2
     return obj
 
 def goatDraw(obj):

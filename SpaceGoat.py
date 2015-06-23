@@ -1,3 +1,5 @@
+from OpenGL.GLE.exceptional import _lengthOfArgname
+
 __author__ = 'rvferreira e laispc'
 
 import sys
@@ -83,10 +85,12 @@ def main():
         if (collision):
             timer += 1.0
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
             red = 1.0 - timer/DEATH_TIMER
-            print red
             glClearColor(red,0,0,1)
             if timer > DEATH_TIMER:
+                for m in meteor:
+                    del meteor[0]
                 timer = 0
                 collision = False
         else:
