@@ -8,7 +8,7 @@ from OpenGL.GL import *
 from pygame.locals import *
 
 from space import setLights, meteorLoad, meteorDraw, meteorMove
-from goat import goatLoad, goatDraw, goatMove
+from goat import goatLoad, goatDraw, goatMove, isGoatSafe
 from utils import Z_FAR, Z_NEAR
 
 WINDOW_WIDTH = 640
@@ -48,6 +48,10 @@ def main():
     meteorLoad(meteor)
 
     rotate = move = False
+
+    collision_num = 0
+    valid_collison = True
+
     while 1:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -77,6 +81,14 @@ def main():
 
         goatDraw(goat)
         meteorDraw(meteor)
+
+        if (isGoatSafe(goat, meteor) == False):
+            if valid_collison:
+                collision_num += 1
+                valid_collison = False
+                print "Collisions = ", collision_num
+        else:
+            valid_collison = True
 
         pygame.display.flip()
 
