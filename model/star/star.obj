@@ -1,6 +1,5 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
-mtllib estrellica.mtl
 g default
 v 7.889562 1.150329 -2.173651
 v 2.212808 1.150329 -2.230414

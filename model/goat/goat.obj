@@ -1,6 +1,6 @@
 # 
 # 
-mtllib model/goat/goat.mtl
+#mtllib model/goat/goat.mtl
 o goat
 v 0.020033 1.369324 1.490993
 v 0.023584 1.353642 1.495501

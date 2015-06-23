@@ -19,7 +19,6 @@ def starInit(stars):
     stars.append(star)
 
 def starMove(stars):
-    print stars[0].t
     for star in stars:
         star.t = (star.t[0] + star.speed * cos(star.dir), star.t[1] + star.speed * sin(star.dir), star.t[2])
 
