@@ -8,6 +8,10 @@ from pygame.locals import *
 from space import setLights, meteorLoad, meteorDraw, meteorMove
 from goat import goatLoad, goatDraw, goatMove
 from starfield import *
+from goat import goatLoad, goatDraw, goatMove, isGoatSafe
+from utils import Z_FAR, Z_NEAR, WINDOW_HEIGHT, WINDOW_WIDTH
+
+DEATH_TIMER = 200
 
 def main():
 
@@ -43,6 +47,10 @@ def main():
     starsInit(stars)
 
     move = False
+
+    collision = False
+    timer = 0.0
+
     while 1:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -69,13 +77,23 @@ def main():
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
 
-        goatDraw(goat)
-        meteorDraw(meteor)
-        starMoveAndDraw(screen, stars)
+        if (isGoatSafe(goat, meteor) == False):
+            collision = True
 
-        # glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-        # glClearColor(1,0,0,1)
-        
+        if (collision):
+            timer += 1.0
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+            red = 1.0 - timer/DEATH_TIMER
+            print red
+            glClearColor(red,0,0,1)
+            if timer > DEATH_TIMER:
+                timer = 0
+                collision = False
+        else:
+            goatDraw(goat)
+            meteorDraw(meteor)
+            starMoveAndDraw(screen, stars)
+
         pygame.display.flip()
 
 if __name__ == '__main__': main()
