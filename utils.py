@@ -21,7 +21,12 @@ def AboveFraction(x):
 
     return 1.0 - np.modf(x)[0]
 
-def objDraw(obj):
+def objDraw(obj, scale = 1.0):
+    x, y, z = obj.t[0], obj.t[1], obj.t[2]
+    glTranslate(-x, -y, -z)
+    glScalef(scale, scale, 1.0)
+    glTranslate(x, y, z)
+
     glTranslate(obj.t[0]/20., obj.t[1]/20., obj.t[2])
     glRotate(obj.r[0], 1, 0, 0)
     glRotate(obj.r[1], 0, 1, 0)

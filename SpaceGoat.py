@@ -42,11 +42,9 @@ def main():
     clock = pygame.time.Clock()
 
     goat = goatLoad()
-    meteor = []
+    meteor, stars = [], []
     meteorLoad(meteor)
-
-    stars = []
-    starsInit(stars)
+    starInit(stars)
 
     move = False
 
@@ -75,6 +73,7 @@ def main():
             goatMove(goat, dir)
 
         meteorMove(meteor)
+        starMove(stars)
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
@@ -96,7 +95,7 @@ def main():
         else:
             goatDraw(goat)
             meteorDraw(meteor)
-            starMoveAndDraw(screen, stars)
+            starDraw(stars)
 
         pygame.display.flip()
 

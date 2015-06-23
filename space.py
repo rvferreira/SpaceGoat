@@ -10,7 +10,7 @@ def setLights():
     glEnable(GL_LIGHTING)
     glEnable(GL_COLOR_MATERIAL)
     glEnable(GL_DEPTH_TEST)
-    #glShadeModel(GL_SMOOTH)           # most obj files expect to be smooth-shaded
+    glShadeModel(GL_SMOOTH)           # most obj files expect to be smooth-shaded
 
 MAX_METEOR_TRANSLATION_X = 100
 LAST_METEOR_POSITION_TO_THROW_A_NEW_ONE = -150
