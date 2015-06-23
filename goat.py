@@ -1,36 +1,22 @@
-import sys
-from MeshViewer import Point3D, Face, Triangle, Quad, Object
+# IMPORT OBJECT LOADER
+from utils import *
+
+MAX_TRANS_X = 80
+GOAT_X_ANGLE = -60
+GOAT_Z_TRANS = -10
+GOAT_SPEED = 3
 
 def goatLoad():
-    meshname = "model/goat.obj"
-    o = Object()
-    o.name = "Model"
-    o = loadObj(meshname,o)
+    obj = OBJ("model/goat/goat.obj", swapyz=True)
+    obj.r, obj.t = (GOAT_X_ANGLE,0), (0,Y_GAME_PLAN,GOAT_Z_TRANS)
+    return obj
 
-    return o
+def goatDraw(obj):
+    if obj.t[0] < -MAX_TRANS_X:
+        obj.t = (-MAX_TRANS_X, obj.t[1], obj.t[2])
+    if obj.t[0] > MAX_TRANS_X:
+        obj.t = (MAX_TRANS_X, obj.t[1], obj.t[2])
+    objDraw(obj)
 
-def drawGoat(env3d, object):
-    object.display(env3d)
-
-def loadObj(filename,o):
-    try:
-        fp = open(filename, "r")
-    except:
-        print "File: "+filename+" not found"
-        sys.exit(1)
-    for line in fp:
-        if line.startswith('#'): continue
-        values = line.split()
-        if not values: continue
-        if values[0] == 'v':
-            v = map(float, values[1:4])
-            o.points.append( Point3D(v[0],v[1],v[2]) )
-        elif values[0] == 'f':
-            p = []
-            for v in values[1:]:
-                w = v.split("/")
-                p.append(w[0])
-            #obj file uses 1 as base, adjust for indexing with -1
-            o.faces.append( Triangle(int(p[0])-1,int(p[1])-1,int(p[2])-1))
-    fp.close()
-    return o
+def goatMove(goat, dir):
+    goat.t = (goat.t[0]+dir*GOAT_SPEED, goat.t[1], goat.t[2])

@@ -57,6 +57,15 @@ class Point3D:
     	c,s=math.cos(angle),math.sin(angle)
     	self.y,self.z = self.y*c-self.z*s, self.y*s+self.z*c
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    def translateX(self,distance):
+    	self.x = self.x + distance
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    def translateY(self,distance):
+    	self.y = self.y + distance
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    def translateZ(self,distance):
+    	self.scale(1 - distance/100)
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def rotateY(self,angle):
     	c,s=math.cos(angle),math.sin(angle)
     	self.x,self.z = self.x*c-self.z*s, self.x*s+self.z*c
@@ -191,6 +200,16 @@ class Object:
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def rotateY(self,angle):
     	for p3d in self.points: p3d.rotateY(angle)
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    def translateX(self,distance):
+    	for p3d in self.points: p3d.translateX(distance)
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    def translateY(self,distance):
+    	for p3d in self.points: p3d.translateY(distance)
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    def translateZ(self,distance):
+        for p3d in self.points: p3d.translateX(self.xIncrement)
+    	for p3d in self.points: p3d.translateZ(distance)
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def rotateZ(self,angle):
     	for p3d in self.points: p3d.rotateZ(angle)
@@ -762,8 +781,8 @@ def main():
     	#MainObject = GetTorus(R=0.6,r=0.59)
     	#MainObject = GetTorus()
 
-    #interactive(env3d, MainObject)
-    animate(env3d, MainObject)
+    interactive(env3d, MainObject)
+    # animate(env3d, MainObject)
 
 
 

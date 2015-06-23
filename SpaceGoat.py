@@ -2,10 +2,14 @@ __author__ = 'rvferreira e laispc'
 
 import sys, random
 import pygame
-from space import Env3D
+
+from OpenGL.GLU import *
+from OpenGL.GL import *
 from pygame.locals import *
 
-from goat import drawGoat, goatLoad
+from space import setLights, meteorLoad, meteorDraw, meteorMove
+from goat import goatLoad, goatDraw, goatMove
+from utils import Z_FAR, Z_NEAR
 
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
@@ -14,44 +18,66 @@ def main():
 
     #initialise pygame
     size = width, height = WINDOW_WIDTH, WINDOW_HEIGHT
-    screen = pygame.display.set_mode(size)
+
+    screen = pygame.display.set_mode(size, OPENGL|DOUBLEBUF)
     pygame.display.set_caption("SpaceGoat")
+    setLights()
+
     pygame.init()
 
-    #Setup display text
-    text = pygame.Surface((300, 200))
-    font = pygame.font.Font(None, 20)
-    white = (255,255,255)
-    fontimg = font.render("SpaceGoat",1,white)
-    text.blit(fontimg, (5,0))
+    # #Setup display text
+    # text = pygame.Surface((300, 200))
+    # font = pygame.font.Font(None, 20)
+    # white = (255,255,255)
+    # fontimg = font.render("SpaceGoat",1,white)
+    # text.blit(fontimg, (5,0))
+
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(45.0, width/float(height), Z_NEAR, Z_FAR)
+    glEnable(GL_DEPTH_TEST)
+    glMatrixMode(GL_MODELVIEW)
 
     #Main loop
     fps = 60
     dt = 1.0/fps
     clock = pygame.time.Clock()
 
-    random.seed()
-    env3d = Env3D(screen,[WINDOW_WIDTH,WINDOW_HEIGHT])
-    o = goatLoad()
+    goat = goatLoad()
+    meteor = []
+    meteorLoad(meteor)
 
-    o.scale(100.0)
-    o.rotateX(3.141592)
-    o.rotateX(-0.3)
-
+    rotate = move = False
     while 1:
-        a = 0
-        screen.fill((0,0,0))
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.display.quit()
                 sys.exit(0)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    sys.exit()
+                elif event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                    if event.key == pygame.K_LEFT: dir = -1
+                    else: dir = 1
+                    move = True
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                    dir = 0
+                    move = False
 
-        #First draw text, so that object appears in front of it
-        screen.blit(text,(0,0))
 
-        drawGoat(env3d, o)
+        if move:
+            goatMove(goat, dir)
 
-        pygame.display.update()
-        clock.tick(fps)
+
+        meteorMove(meteor)
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glLoadIdentity()
+
+        goatDraw(goat)
+        meteorDraw(meteor)
+
+        pygame.display.flip()
 
 if __name__ == '__main__': main()
