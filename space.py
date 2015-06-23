@@ -37,4 +37,4 @@ def meteorMove(meteor):
     if meteor[-1].t[2] > LAST_METEOR_POSITION_TO_THROW_A_NEW_ONE:
         meteorLoad(meteor)
     if meteor[0].t[2] > METEOR_VANISH_Z:
-        del meteor
+        del meteor[0]
