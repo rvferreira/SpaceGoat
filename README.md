@@ -21,6 +21,10 @@ OpenGL learning program
 	esquerda e direita. Cada meteoro evitado adiciona um ponto, enquanto uma colisão zera 
 	os pontos obtidos até o momento de forma dramática.
 
+#Demonstração
+
+	Link para vídeo do gameplay no Youtube: https://www.youtube.com/watch?v=Ieyp_-cI02k
+
 #Configurações requeridas
 
 	O ambiente de desenvolvimento foi Linux. É necessária a instalação das seguintes bibliotecas:
