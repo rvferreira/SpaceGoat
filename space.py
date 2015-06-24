@@ -25,6 +25,7 @@ def meteorLoad(meteorList):
     obj.rot_speed = (random.randrange(-METEOR_MAX_ROT_SPEED, METEOR_MAX_ROT_SPEED), random.randrange(-METEOR_MAX_ROT_SPEED, METEOR_MAX_ROT_SPEED))
     obj.safeX = 20
     obj.safeZ = 7
+    obj.passed = False
     meteorList.append(obj)
 
 def meteorDraw(meteorList):

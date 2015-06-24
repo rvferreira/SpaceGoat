@@ -1,6 +1,7 @@
 import pygame
 from OpenGL.GL import *
 import numpy as np
+import os
 
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
@@ -9,6 +10,20 @@ Z_NEAR = 1.0
 Z_FAR = 200.0
 
 Y_GAME_PLAN = -50
+
+def load_sound(name):
+    class NoneSound:
+        def play(self): pass
+    if not pygame.mixer or not pygame.mixer.get_init():
+        return NoneSound()
+    data_dir = ''    
+    fullname = os.path.join(data_dir, name)
+    try:
+        sound = pygame.mixer.Sound(fullname)
+    except pygame.error:
+        print ('Cannot load sound: %s' % fullname)
+        raise SystemExit(str(geterror()))
+    return sound
 
 def BelowFraction(x):
     "Calculate fractional part of scalar or array of floats."
