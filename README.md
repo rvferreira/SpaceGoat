@@ -7,7 +7,8 @@ OpenGL learning program
 
 # Autoria
 
-	Trabalho desenvolvido dentro das dependencias da USP Sao Carlos, na disciplina SCC650, Computação gráfica, sob orientacao da Profa. Maria Cristina F. de Oliveira, pelos alunos:
+	Trabalho desenvolvido dentro das dependencias da USP Sao Carlos, na disciplina SCC650, 
+	Computação gráfica, sob orientacao da Profa. Maria Cristina F. de Oliveira, pelos alunos:
 
     Lais Pessine		laispc19@gmail.com 
     Raphael Ferreira	raphael.rvf@gmail.com
@@ -16,7 +17,9 @@ OpenGL learning program
 
 #Gameplay
 
-	Uma cabra viaja pelo espaço. Ajude-a a desviar dos meteoros com as teclas direcionais esquerda e direita. Cada meteoro evitado adiciona um ponto, enquanto uma colisão zera os pontos obtidos até o momento de forma dramática.
+	Uma cabra viaja pelo espaço. Ajude-a a desviar dos meteoros com as teclas direcionais 
+	esquerda e direita. Cada meteoro evitado adiciona um ponto, enquanto uma colisão zera 
+	os pontos obtidos até o momento de forma dramática.
 
 #Configurações requeridas
 
